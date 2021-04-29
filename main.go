@@ -37,6 +37,7 @@ var (
 	streaming        = flag.Bool("streaming", true, "Retrieve data by subscribing to Atlas Streaming API")
 	streamingTimeout = flag.Duration("streaming.timeout", streamTimeout, "When no update is received in this timespan a reconnect is initiated.")
 	profiling        = flag.Bool("profiling", false, "Enables pprof endpoints")
+	level            = flag.String("log.level", "info", "Logging level: [debug, info, warn, error, fatal]")
 	cfg              *config.Config
 	strategy         atlas.Strategy
 )
@@ -51,6 +52,9 @@ func init() {
 
 func main() {
 	flag.Parse()
+
+	base := log.Base()
+	base.SetLevel(*level)
 
 	if *showVersion {
 		printVersion()
