@@ -1,8 +1,8 @@
 package traceroute
 
 import (
-	"github.com/DNS-OARC/ripeatlas/measurement"
-	"github.com/czerwonk/atlas_exporter/probe"
+	"github.com/glightfoot/ripeatlas/measurement"
+	"github.com/glightfoot/atlas_exporter/probe"
 )
 
 type tracerouteResultValidator struct {

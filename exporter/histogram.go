@@ -1,7 +1,7 @@
 package exporter
 
 import (
-	"github.com/DNS-OARC/ripeatlas/measurement"
+	"github.com/glightfoot/ripeatlas/measurement"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

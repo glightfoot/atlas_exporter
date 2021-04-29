@@ -5,11 +5,11 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/czerwonk/atlas_exporter/exporter"
+	"github.com/glightfoot/atlas_exporter/exporter"
 
-	"github.com/DNS-OARC/ripeatlas"
-	"github.com/DNS-OARC/ripeatlas/measurement"
-	"github.com/czerwonk/atlas_exporter/config"
+	"github.com/glightfoot/ripeatlas"
+	"github.com/glightfoot/ripeatlas/measurement"
+	"github.com/glightfoot/atlas_exporter/config"
 	"github.com/prometheus/common/log"
 )
 

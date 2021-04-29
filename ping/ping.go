@@ -1,8 +1,8 @@
 package ping
 
 import (
-	"github.com/czerwonk/atlas_exporter/config"
-	"github.com/czerwonk/atlas_exporter/exporter"
+	"github.com/glightfoot/atlas_exporter/config"
+	"github.com/glightfoot/atlas_exporter/exporter"
 )
 
 const (

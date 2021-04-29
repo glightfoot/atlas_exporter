@@ -4,5 +4,4 @@ debug
 .idea/*
 .vscode/*
 *.iml
-
-
+config.yml

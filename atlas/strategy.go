@@ -3,7 +3,7 @@ package atlas
 import (
 	"context"
 
-	"github.com/czerwonk/atlas_exporter/exporter"
+	"github.com/glightfoot/atlas_exporter/exporter"
 )
 
 // Strategy defines an strategy to retrieve data for generating metrics

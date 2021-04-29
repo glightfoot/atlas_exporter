@@ -7,14 +7,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/czerwonk/atlas_exporter/exporter"
-	"github.com/czerwonk/atlas_exporter/probe"
+	"github.com/glightfoot/atlas_exporter/exporter"
+	"github.com/glightfoot/atlas_exporter/probe"
 
-	"github.com/DNS-OARC/ripeatlas/measurement"
-	"github.com/czerwonk/atlas_exporter/config"
+	"github.com/glightfoot/atlas_exporter/config"
+	"github.com/glightfoot/ripeatlas/measurement"
 	"github.com/prometheus/common/log"
 
-	"github.com/DNS-OARC/ripeatlas"
+	"github.com/glightfoot/ripeatlas"
 )
 
 const connectionRetryInterval = 30 * time.Second
@@ -112,7 +112,7 @@ func (s *streamingStrategy) listenForResults(ctx context.Context, timeout time.D
 				return
 			}
 
-			s.processMeasurement(m)
+			go s.processMeasurement(m)
 		case <-time.After(timeout):
 			log.Errorf("Timeout reached. Trying to reconnect.")
 			return

@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/DNS-OARC/ripeatlas/measurement"
-	"github.com/czerwonk/atlas_exporter/config"
-	"github.com/czerwonk/atlas_exporter/dns"
-	"github.com/czerwonk/atlas_exporter/exporter"
-	"github.com/czerwonk/atlas_exporter/http"
-	"github.com/czerwonk/atlas_exporter/ntp"
-	"github.com/czerwonk/atlas_exporter/ping"
-	"github.com/czerwonk/atlas_exporter/probe"
-	"github.com/czerwonk/atlas_exporter/sslcert"
-	"github.com/czerwonk/atlas_exporter/traceroute"
+	"github.com/glightfoot/atlas_exporter/config"
+	"github.com/glightfoot/atlas_exporter/dns"
+	"github.com/glightfoot/atlas_exporter/exporter"
+	"github.com/glightfoot/atlas_exporter/http"
+	"github.com/glightfoot/atlas_exporter/ntp"
+	"github.com/glightfoot/atlas_exporter/ping"
+	"github.com/glightfoot/atlas_exporter/probe"
+	"github.com/glightfoot/atlas_exporter/sslcert"
+	"github.com/glightfoot/atlas_exporter/traceroute"
+	"github.com/glightfoot/ripeatlas/measurement"
 )
 
 func probesForResults(res []*measurement.Result, workers uint) (map[int]*probe.Probe, error) {

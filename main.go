@@ -10,8 +10,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/czerwonk/atlas_exporter/atlas"
-	"github.com/czerwonk/atlas_exporter/config"
+	"github.com/glightfoot/atlas_exporter/atlas"
+	"github.com/glightfoot/atlas_exporter/config"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/log"
@@ -119,7 +119,7 @@ func startServer() {
 			<p>Metrics for measurement with id 8809582:</p>
 			<p><a href="` + *metricsPath + `?measurement_id=8809582">` + r.Host + *metricsPath + `?measurement_id=8809582</a></p>
 			<h2>More information</h2>
-			<p><a href="https://github.com/czerwonk/atlas_exporter">github.com/czerwonk/atlas_exporter</a></p>
+			<p><a href="https://github.com/glightfoot/atlas_exporter">github.com/glightfoot/atlas_exporter</a></p>
 			</body>
 			</html>`))
 	})

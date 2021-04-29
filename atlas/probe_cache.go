@@ -3,7 +3,7 @@ package atlas
 import (
 	"time"
 
-	"github.com/czerwonk/atlas_exporter/probe"
+	"github.com/glightfoot/atlas_exporter/probe"
 	"github.com/prometheus/common/log"
 )
 

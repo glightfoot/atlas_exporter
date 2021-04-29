@@ -1,6 +1,6 @@
 # atlas_exporter 
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/czerwonk/atlas_exporter.svg)](https://hub.docker.com/r/czerwonk/atlas_exporter/builds)
-[![Go Report Card](https://goreportcard.com/badge/github.com/czerwonk/atlas_exporter)](https://goreportcard.com/report/github.com/czerwonk/atlas_exporter)
+[![Go Report Card](https://goreportcard.com/badge/github.com/glightfoot/atlas_exporter)](https://goreportcard.com/report/github.com/glightfoot/atlas_exporter)
 
 Metric exporter for RIPE Atlas measurement results
 
@@ -29,7 +29,7 @@ https://prometheus.io/docs/practices/histograms/
 
 ## Install
 ```
-go get -u github.com/czerwonk/atlas_exporter
+go get -u github.com/glightfoot/atlas_exporter
 ```
 
 ## Docker
