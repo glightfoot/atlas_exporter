@@ -9,3 +9,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 	gopkg.in/yaml.v2 v2.4.0
 )
+
+replace github.com/glightfoot/golang-socketio v0.0.0-20210429151747-49c2ab51dc00 => ../golang-socketio
+
+replace github.com/glightfoot/ripeatlas v0.0.0-20210429151918-5da82a40f47b => ../ripeatlas

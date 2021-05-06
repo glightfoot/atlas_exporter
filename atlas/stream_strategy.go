@@ -26,6 +26,7 @@ type streamingStrategy struct {
 	cfg            *config.Config
 	defaultTimeout time.Duration
 	mu             sync.Mutex
+	chansByID      map[string]chan *measurement.Result
 }
 
 // NewStreamingStrategy returns an strategy using the RIPE Atlas Streaming API
@@ -36,6 +37,7 @@ func NewStreamingStrategy(ctx context.Context, cfg *config.Config, workers uint,
 		defaultTimeout: defaultTimeout,
 		cfg:            cfg,
 		measurements:   make(map[string]*exporter.Measurement),
+		chansByID:      make(map[string]chan *measurement.Result),
 	}
 
 	s.start(ctx, cfg.Measurements)
@@ -48,14 +50,27 @@ func (s *streamingStrategy) start(ctx context.Context, measurements []config.Mea
 	}
 }
 
+func (s *streamingStrategy) getChan(id string) chan *measurement.Result {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	ch, exists := s.chansByID[id]
+	if !exists {
+		ch = make(chan *measurement.Result, 2*s.workers)
+		s.chansByID[id] = ch
+	}
+
+	return ch
+}
+
 func (s *streamingStrategy) startListening(ctx context.Context, m config.Measurement) {
 	for {
-		ch, err := s.subscribe(m.ID)
+		err := s.subscribe(m.ID)
 		if err != nil {
 			log.Error(err)
 		} else {
 			log.Infof("Subscribed to results of measurement #%s", m.ID)
-			s.listenForResults(ctx, s.timeoutForMeasurement(m), ch)
+			s.listenForResults(ctx, m.ID, s.timeoutForMeasurement(m))
 		}
 
 		select {
@@ -83,26 +98,33 @@ func (s *streamingStrategy) timeoutForMeasurement(m config.Measurement) time.Dur
 	return m.Timeout
 }
 
-func (s *streamingStrategy) subscribe(id string) (<-chan *measurement.Result, error) {
+func (s *streamingStrategy) subscribe(id string) error {
 	msm, err := strconv.Atoi(id)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	ch, err := s.stream.MeasurementResults(ripeatlas.Params{
+	err = s.stream.MeasurementResultsWithChan(ripeatlas.Params{
 		"msm": msm,
-	})
+	}, s.getChan(id))
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return ch, nil
+	return nil
 }
 
-func (s *streamingStrategy) listenForResults(ctx context.Context, timeout time.Duration, ch <-chan *measurement.Result) {
+func (s *streamingStrategy) listenForResults(ctx context.Context, id string, timeout time.Duration) {
+	ch := s.getChan(id)
 	for {
 		select {
 		case m := <-ch:
+			if m == nil {
+				// channel is closed - should not reach here
+				log.Error("got unexpected nil message on results chan...")
+				return
+			}
+
 			if m.ParseError != nil {
 				log.Error(m.ParseError)
 			}
